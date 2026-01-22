@@ -41,12 +41,39 @@ robot = scene.add_entity(
 
 scene.build()
 
+
+def _viewer_closed(viewer) -> bool:
+    if viewer is None:
+        return True
+    for attr in ("is_closed", "closed"):
+        val = getattr(viewer, attr, None)
+        if callable(val):
+            try:
+                if val():
+                    return True
+            except Exception:
+                pass
+        elif isinstance(val, bool) and val:
+            return True
+    for attr in ("is_open", "opened", "is_alive"):
+        val = getattr(viewer, attr, None)
+        if callable(val):
+            try:
+                if not val():
+                    return True
+            except Exception:
+                pass
+        elif isinstance(val, bool) and not val:
+            return True
+    return False
+
+
 # ---------------- (optional) control gains ----------------
 # 參考官方教學：不同機器人要自己 tune kp/kv。:contentReference[oaicite:1]{index=1}
 # 先給一組保守值，讓它能動起來；之後你再依實際穩定度調大/調小。
 n = robot.n_dofs
-robot.set_dofs_kp(np.ones(n) * 800.0)
-robot.set_dofs_kv(np.ones(n) * 80.0)
+robot.set_dofs_kp(np.ones(n) * 1200.0)
+robot.set_dofs_kv(np.ones(n) * 120.0)
 
 # ---------------- IK + motion planning ----------------
 ee = robot.get_link("robot_ver7_link_4_v1_1")  # ✅ 你的末端
@@ -55,9 +82,9 @@ ee = robot.get_link("robot_ver7_link_4_v1_1")  # ✅ 你的末端
 # (如果解不出來，你就把範圍縮小一點)
 target_pos = np.array(
     [
-        np.random.uniform(0.30, 0.60),  # x
-        np.random.uniform(-0.25, 0.25),  # y
-        np.random.uniform(0.15, 0.55),  # z
+        np.random.uniform(0.20, 0.45),  # x
+        np.random.uniform(-0.15, 0.15),  # y
+        np.random.uniform(0.15, 0.40),  # z
     ],
     dtype=np.float32,
 )
@@ -66,6 +93,11 @@ target_pos = np.array(
 target_quat = np.array([0, 1, 0, 0], dtype=np.float32)
 
 print("target_pos:", target_pos)
+
+# draw a small red marker at the target position
+target_marker = scene.draw_debug_sphere(
+    pos=target_pos, radius=0.01, color=(1.0, 0.0, 0.0, 1.0)
+)
 
 qpos_goal = robot.inverse_kinematics(
     link=ee,
@@ -83,6 +115,13 @@ for waypoint in path:
     robot.control_dofs_position(waypoint)
     scene.step()
 
-# 讓 PD controller 收斂一下（教學也會多 step 一段）:contentReference[oaicite:4]{index=4}
-for _ in range(120):
+# 走完路徑後，固定目標關節並讓 PD controller 收斂
+for _ in range(300):
+    robot.control_dofs_position(qpos_goal)
+    scene.step()
+
+while True:
+    viewer = getattr(scene, "viewer", None)
+    if _viewer_closed(viewer):
+        break
     scene.step()
