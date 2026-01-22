@@ -77,14 +77,14 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -97,14 +97,14 @@
     <visual>
       <origin xyz="0.0 -0.0 -0.076" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/base_link2_v2_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/base_link2_v2_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin xyz="0.0 -0.0 -0.076" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/base_link2_v2_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/base_link2_v2_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -117,14 +117,14 @@
     <visual>
       <origin xyz="0.0 0.0 -0.146342" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/link3_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/link3_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin xyz="0.0 0.0 -0.146342" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/link3_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/link3_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -137,14 +137,14 @@
     <visual>
       <origin xyz="-0.137776 0.0 -0.310538" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/link4_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/link4_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin xyz="-0.137776 0.0 -0.310538" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/link4_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/link4_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -157,14 +157,14 @@
     <visual>
       <origin xyz="-0.36806 0.0 -0.352664" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/robot_ver7_link_4_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/robot_ver7_link_4_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin xyz="-0.36806 0.0 -0.352664" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/robot_ver7_link_4_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/robot_ver7_link_4_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -177,14 +177,14 @@
     <visual>
       <origin xyz="-0.409619 0.0125 -0.359992" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/robot_ver7_grap2_2_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/robot_ver7_grap2_2_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin xyz="-0.409619 0.0125 -0.359992" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/robot_ver7_grap2_2_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/robot_ver7_grap2_2_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -197,14 +197,14 @@
     <visual>
       <origin xyz="-0.409619 -0.0125 -0.359992" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/robot_ver7_grap1_2_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/robot_ver7_grap1_2_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin xyz="-0.409619 -0.0125 -0.359992" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/robot_ver7_grap1_2_v1_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/robot_ver7_grap1_2_v1_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -217,14 +217,14 @@
     <visual>
       <origin xyz="-0.0 -0.0 -0.04" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/base_link_2_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/base_link_2_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin xyz="-0.0 -0.0 -0.04" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/base_link_2_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/base_link_2_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -237,14 +237,14 @@
     <visual>
       <origin xyz="-0.37354 -0.0 -0.274937" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/camera_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/camera_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <origin xyz="-0.37354 -0.0 -0.274937" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://angle_excurate_arm_ver2_description/meshes/camera_1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="angle_excurate_arm_ver2_description/meshes/camera_1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>

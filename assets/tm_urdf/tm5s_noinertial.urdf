@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="">
+  <joint name="base_fixed_joint" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0." />
+    <parent link="body" />
+    <child link="link_0" />
+  </joint>
+  <joint name="elbow_joint" type="revolute">
+    <origin xyz="0. 0. -0.429" rpy="0. -0. -0." />
+    <parent link="link_2" />
+    <child link="link_3" />
+    <axis xyz="1. 0. 0." />
+    <limit lower="-2.7576202" upper="2.7576202" effort="30000." velocity="30.0000005" />
+  </joint>
+  <joint name="flange_fixed_joint" type="fixed">
+    <origin xyz="-0.0000001 -0.0000617 0.0001164" rpy="0.0002284 1.5699339 -0.0002291" />
+    <parent link="link_6" />
+    <child link="flange_link" />
+  </joint>
+  <joint name="shoulder_1_joint" type="revolute">
+    <origin xyz="0. 0. 0.1484" rpy="0. -1.5707964 0. " />
+    <parent link="link_0" />
+    <child link="link_1" />
+    <axis xyz="1. 0. 0." />
+    <limit lower="-6.2831853" upper="6.2831853" effort="30000." velocity="30.0000005" />
+  </joint>
+  <joint name="shoulder_2_joint" type="revolute">
+    <origin xyz="0. 0. 0." rpy="-1.570796 -0.0000003 1.5707963" />
+    <parent link="link_1" />
+    <child link="link_2" />
+    <axis xyz="1. 0. 0." />
+    <limit lower="-6.2831853" upper="6.2831853" effort="30000." velocity="30.0000005" />
+  </joint>
+  <joint name="wrist_1_joint" type="revolute">
+    <origin xyz="-0.1478 -0. -0.386 " rpy="1.570796 0. 0. " />
+    <parent link="link_3" />
+    <child link="link_4" />
+    <axis xyz="1. 0. 0." />
+    <limit lower="-6.2831853" upper="6.2831853" effort="30000." velocity="30.0000005" />
+  </joint>
+  <joint name="wrist_2_joint" type="revolute">
+    <origin xyz="0. -0.1315 0. " rpy="-0. -0. -1.570796" />
+    <parent link="link_4" />
+    <child link="link_5" />
+    <axis xyz="1. 0. 0." />
+    <limit lower="-6.2831853" upper="6.2831853" effort="30000." velocity="30.0000005" />
+  </joint>
+  <joint name="wrist_3_joint" type="revolute">
+    <origin xyz="0.0000616 -0.1349499 -0.0001164" rpy="0.0000002 0.0008624 -1.5703388" />
+    <parent link="link_5" />
+    <child link="link_6" />
+    <axis xyz="1. 0. 0." />
+    <limit lower="-6.2831853" upper="6.2831853" effort="30000." velocity="30.0000005" />
+  </joint>
+  <link name="body"></link>
+  <link name="flange_link">
+    
+  </link>
+  <link name="link_0">
+    
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0." />
+      <geometry>
+        <mesh filename="meshes/link_0_visuals.obj" scale="1. 1. 1." />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0." />
+      <geometry>
+        <mesh filename="meshes/link_0_collisions.obj" scale="1. 1. 1." />
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_1">
+    
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 1.5707964 0. " />
+      <geometry>
+        <mesh filename="meshes/link_1_visuals.obj" scale="1. 1. 1." />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 1.5707964 0. " />
+      <geometry>
+        <mesh filename="meshes/link_1_collisions.obj" scale="1. 1. 1." />
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_2">
+    
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 1.5707963 0. " />
+      <geometry>
+        <mesh filename="meshes/link_2_visuals.obj" scale="1. 1. 1." />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 1.5707963 0. " />
+      <geometry>
+        <mesh filename="meshes/link_2_collisions.obj" scale="1. 1. 1." />
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_3">
+    
+    <visual>
+      <origin xyz="-0. -0. 0." rpy="0. 1.5707964 0. " />
+      <geometry>
+        <mesh filename="meshes/link_3_visuals.obj" scale="1. 1. 1." />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0. -0. 0." rpy="0. 1.5707964 0. " />
+      <geometry>
+        <mesh filename="meshes/link_3_collisions.obj" scale="1. 1. 1." />
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_4">
+    
+    <visual>
+      <origin xyz="0. 0. 0." rpy="-0.0000001 1.5707963 0. " />
+      <geometry>
+        <mesh filename="meshes/link_4_visuals.obj" scale="1. 1. 1." />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="-0.0000001 1.5707963 0. " />
+      <geometry>
+        <mesh filename="meshes/link_4_collisions.obj" scale="1. 1. 1." />
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_5">
+    
+    <visual>
+      <origin xyz="-0.0000001 0. 0. " rpy="1.5705675 1.5699339 1.5710247" />
+      <geometry>
+        <mesh filename="meshes/link_5_visuals.obj" scale="1. 1. 1." />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.0000001 0. 0. " rpy="1.5705675 1.5699339 1.5710247" />
+      <geometry>
+        <mesh filename="meshes/link_5_collisions.obj" scale="1. 1. 1." />
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_6">
+    
+    <visual>
+      <origin xyz="-0.0000001 -0.0000617 0.0001164" rpy="0.0002284 1.5699339 -0.0002291" />
+      <geometry>
+        <mesh filename="meshes/link_6_visuals.obj" scale="1. 1. 1." />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.0000001 -0.0000617 0.0001164" rpy="0.0002284 1.5699339 -0.0002291" />
+      <geometry>
+        <mesh filename="meshes/link_6_collisions.obj" scale="1. 1. 1." />
+      </geometry>
+    </collision>
+  </link>
+</robot>
