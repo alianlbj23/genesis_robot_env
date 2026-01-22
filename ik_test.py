@@ -221,7 +221,7 @@ input("Press ENTER to start motion...")
 
 # 隨機取一個「大概在手臂可達範圍」的目標點
 # (如果解不出來，你就把範圍縮小一點)
-target_pos = np.array([0.20, -0.15, 0.3], dtype=np.float32)
+target_pos = np.array([0.30, -0.15, 0.3], dtype=np.float32)
 
 # 目標姿態：直接先用教學裡的 quat (0,1,0,0) 當固定姿態示例 :contentReference[oaicite:2]{index=2}
 target_quat = np.array([0, 1, 0, 0], dtype=np.float32)
@@ -233,7 +233,7 @@ target_marker = scene.draw_debug_sphere(
     pos=target_pos, radius=0.01, color=(1.0, 0.0, 0.0, 1.0)
 )
 
-ik_max_iters = 200
+ik_max_iters = 1000
 _ik_kwargs = {
     "link": ee,
     "pos": target_pos,
