@@ -107,8 +107,20 @@ def _get_link_pos(link):
         if callable(func):
             try:
                 pose = func()
-                if isinstance(pose, (list, tuple, np.ndarray)) and len(pose) >= 3:
+                if isinstance(pose, np.ndarray):
+                    if pose.shape == (4, 4):
+                        return np.array(pose[:3, 3], dtype=np.float32)
+                    if pose.ndim == 1 and pose.shape[0] >= 3:
+                        return np.array(pose[:3], dtype=np.float32)
+                if isinstance(pose, (list, tuple)) and len(pose) >= 3:
                     return np.array(pose[:3], dtype=np.float32)
+                if isinstance(pose, dict):
+                    if "pos" in pose:
+                        return np.array(pose["pos"], dtype=np.float32)
+                    if "position" in pose:
+                        return np.array(pose["position"], dtype=np.float32)
+                    if "translation" in pose:
+                        return np.array(pose["translation"], dtype=np.float32)
                 if hasattr(pose, "pos"):
                     return np.array(pose.pos, dtype=np.float32)
             except Exception:
@@ -140,6 +152,41 @@ def _set_marker_pos(marker, pos: np.ndarray) -> None:
                 pass
 
 
+def _get_link_world_pos(robot, link):
+    link_name = getattr(link, "name", None) or getattr(link, "link_name", None)
+    for name in (
+        "get_link_state",
+        "get_link_states",
+        "get_link_pose",
+        "get_link_poses",
+        "get_link_transform",
+        "get_link_transforms",
+        "get_link_world_pos",
+        "get_link_world_position",
+    ):
+        func = getattr(robot, name, None)
+        if callable(func):
+            try:
+                state = func(link_name) if link_name is not None else func(link)
+                if isinstance(state, dict):
+                    for key in (
+                        "pos",
+                        "position",
+                        "world_pos",
+                        "world_position",
+                        "translation",
+                    ):
+                        if key in state:
+                            return np.array(state[key], dtype=np.float32)
+                if isinstance(state, np.ndarray) and state.shape == (4, 4):
+                    return np.array(state[:3, 3], dtype=np.float32)
+                if isinstance(state, (list, tuple, np.ndarray)) and len(state) >= 3:
+                    return np.array(state[:3], dtype=np.float32)
+            except Exception:
+                pass
+    return _get_link_pos(link)
+
+
 # ---------------- (optional) control gains ----------------
 # 參考官方教學：不同機器人要自己 tune kp/kv。:contentReference[oaicite:1]{index=1}
 # 先給一組保守值，讓它能動起來；之後你再依實際穩定度調大/調小。
@@ -150,7 +197,11 @@ robot.set_dofs_kv(np.ones(n) * 120.0)
 # ---------------- IK + motion planning ----------------
 ee = robot.get_link("robot_ver7_grap2_2_v1_1")  # ✅ 你的末端
 
-ee_pos = _get_link_pos(ee)
+# warm up a few steps so link world poses are updated
+for _ in range(5):
+    scene.step()
+
+ee_pos = _get_link_world_pos(robot, ee)
 ee_marker = None
 if ee_pos is not None:
     ee_marker = scene.draw_debug_sphere(
@@ -170,14 +221,7 @@ input("Press ENTER to start motion...")
 
 # 隨機取一個「大概在手臂可達範圍」的目標點
 # (如果解不出來，你就把範圍縮小一點)
-target_pos = np.array(
-    [
-        np.random.uniform(0.20, 0.45),  # x
-        np.random.uniform(-0.15, 0.15),  # y
-        np.random.uniform(0.15, 0.40),  # z
-    ],
-    dtype=np.float32,
-)
+target_pos = np.array([0.20, -0.15, 0.3], dtype=np.float32)
 
 # 目標姿態：直接先用教學裡的 quat (0,1,0,0) 當固定姿態示例 :contentReference[oaicite:2]{index=2}
 target_quat = np.array([0, 1, 0, 0], dtype=np.float32)
@@ -189,23 +233,34 @@ target_marker = scene.draw_debug_sphere(
     pos=target_pos, radius=0.01, color=(1.0, 0.0, 0.0, 1.0)
 )
 
-qpos_goal = robot.inverse_kinematics(
-    link=ee,
-    pos=target_pos,
-    quat=target_quat,
-)
+ik_max_iters = 200
+_ik_kwargs = {
+    "link": ee,
+    "pos": target_pos,
+    "quat": target_quat,
+}
+try:
+    qpos_goal = robot.inverse_kinematics(**_ik_kwargs, max_iters=ik_max_iters)
+except TypeError:
+    try:
+        qpos_goal = robot.inverse_kinematics(**_ik_kwargs, max_iter=ik_max_iters)
+    except TypeError:
+        try:
+            qpos_goal = robot.inverse_kinematics(**_ik_kwargs, num_iters=ik_max_iters)
+        except TypeError:
+            qpos_goal = robot.inverse_kinematics(**_ik_kwargs)
 
 # 用 motion planner 走到目標（教學用 plan_path + waypoints 執行）:contentReference[oaicite:3]{index=3}
 path = robot.plan_path(
     qpos_goal=qpos_goal,
-    num_waypoints=200,
+    num_waypoints=500,
 )
 
 for waypoint in path:
     robot.control_dofs_position(waypoint)
     scene.step()
     if ee_marker is not None:
-        ee_pos = _get_link_pos(ee)
+        ee_pos = _get_link_world_pos(robot, ee)
         if ee_pos is not None:
             _set_marker_pos(ee_marker, ee_pos)
 
@@ -214,11 +269,11 @@ for _ in range(300):
     robot.control_dofs_position(qpos_goal)
     scene.step()
     if ee_marker is not None:
-        ee_pos = _get_link_pos(ee)
+        ee_pos = _get_link_world_pos(robot, ee)
         if ee_pos is not None:
             _set_marker_pos(ee_marker, ee_pos)
 
-ee_pos = _get_link_pos(ee)
+ee_pos = _get_link_world_pos(robot, ee)
 if ee_pos is not None:
     err_mm = float(np.linalg.norm(ee_pos - target_pos) * 1000.0)
     print(f"EE to target error: {err_mm:.2f} mm")
@@ -231,6 +286,6 @@ while True:
         break
     scene.step()
     if ee_marker is not None:
-        ee_pos = _get_link_pos(ee)
+        ee_pos = _get_link_world_pos(robot, ee)
         if ee_pos is not None:
             _set_marker_pos(ee_marker, ee_pos)
